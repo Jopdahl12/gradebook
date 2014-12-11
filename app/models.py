@@ -1,5 +1,10 @@
 from app import db
 
+classroom = db.Table('classroom',
+	db.Column("student", db.String(8), db.ForeignKey('student.id')),
+	db.Column("course", db.Integer, db.ForeignKey('course.name'))
+)
+
 class Student(db.Model):
 	id = db.Column(db.String(8), primary_key=True)
 	first_name = db.Column(db.String(50), index=True)
@@ -8,7 +13,11 @@ class Student(db.Model):
 	year = db.Column(db.Integer)
 	total_credits = db.Column(db.Integer)
 	student_pass = db.Column(db.String(50))
-	classes = db.relationship("Course", backref="student",lazy='dynamic')
+	classes = db.relationship("Course",
+							secondary= classroom,
+							primaryjoin=(classroom.c.student == id),
+							backref=db.backref("students", lazy='dynamic'),
+							lazy='dynamic')
 
 	def is_authenticated(self):
 		return True
@@ -29,6 +38,22 @@ class Student(db.Model):
 		if self.student_pass == password:
 			return True
 		return False
+
+	def register(self, coursename):
+		if not self.is_registered(coursename):
+			course = Course.query.filter_by(name=coursename).first()
+
+			self.classes.append(course)
+			return self
+
+	def drop(self, coursename):
+		if self.is_registered(coursename):
+			course = self.classes.filter(classroom.c.course == coursename)
+			self.classes.remove(course)
+			return self
+
+	def is_registered(self, coursename):
+		return self.classes.filter(classroom.c.course == coursename).count()>0
 
 	def __repr__(self):
 		return (self.first_name + ' ' + self.last_name)
@@ -66,27 +91,28 @@ class Admin(db.Model):
 class Course(db.Model):
 	course_num = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(80), index=True, unique=True)
-	student_id = db.Column(db.String(8), db.ForeignKey('student.id'))
+	# student_id = db.Column(db.String(8), db.ForeignKey('student.id'))
 	admin_id = db.Column(db.String(8), db.ForeignKey('admin.id'))
-	# assignments = db.relationship("Assignment", backref="course", lazy='dynamic')
+	assignments = db.relationship("Assignment", backref="for_class", lazy='dynamic')
 
 	def __repr__(self):
 		return self.name
 
-# class Assignment(db.Model):
-# 	assign_num = db.Column(db.Integer, primary_key=True)
-# 	name = db.Column(db.String(100), index=True)
-# 	total = db.Column(db.Float)
-# 	out_of = db.Column(db.Integer)
-# 	score = db.Column(db.Float)
-# 	course = db.Column(db.Integer, db.ForeignKey('course.course_num'))
+class Assignment(db.Model):
+	assign_num = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(100), index=True)
+	total = db.Column(db.Float)
+	out_of = db.Column(db.Integer)
+	course = db.Column(db.Integer, db.ForeignKey('course.course_num'))
 
-# 	def copmute_score(self):
-# 		score = self.total/self.out_of
-# 		return score
+	def score(self):
+		score = self.total/self.out_of
+		return score
 
-# 	def __repr__(self):
-# 		return self.name
+	def __repr__(self):
+		return self.name
+
+
 
 
 
