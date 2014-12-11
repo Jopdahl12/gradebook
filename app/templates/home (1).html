@@ -1,0 +1,20 @@
+{% extends "new.html" %}
+
+{% block rightcontent %}
+
+	<h1 text-align:center> Welcome! </h1>
+	<div class="buttons">
+		<button id="RegDrop" onclick="{{ url_for('regDrop') }}"> Register/ <br/> Drop </button>
+		<button id="ViewCourse" onclick="{{ url_for('viewCourse') }}"> View <br/> Courses </button>
+		<button id="ContactAdmin" onclick="{{ url_for('contactAdmin') }}"> Contact <br/> Administrator </button>
+	</div>
+{% endblock %}
+
+{% block leftcontent %}
+	<form action="/getYears" method=post>
+		<ul class="courseYears" list-style-type="none">
+			<li><a href="{{ url_for('current') }}"> Current </a></li>
+			<li><a href="{{ url_for('fall14') }}"> Fall 2014 </a></li>
+		</ul>
+	</form>
+{% endblock %}

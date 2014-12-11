@@ -1,0 +1,5 @@
+		<button id="RegDrop" onclick="{{ url_for('regDrop') }}"> Register/ <br/> Drop </button>
+		<button id="ViewCourse" onclick="{{ url_for('viewCourse') }}"> View <br/> Courses </button>
+		<button id="ContactAdmin" onclick="{{ url_for('contactAdmin') }}"> Contact <br/> Administrator </button>
+
+		

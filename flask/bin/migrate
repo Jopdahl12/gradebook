@@ -1,0 +1,10 @@
+#!/Users/Jonny/Documents/gradebook/flask/bin/python3.4
+# PBR Generated from 'console_scripts'
+
+import sys
+
+from migrate.versioning.shell import main
+
+
+if __name__ == "__main__":
+    sys.exit(main())

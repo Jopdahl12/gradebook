@@ -1,0 +1,33 @@
+{% extends "new.html" %}
+
+{% block rightcontent %}
+	<form action="/getAdminDescription" method=post>
+	<div class="description">
+		<h1> Classname: {{ classname }} </h1>
+		<h2> Prof: {{ staff_ID }} </h2>
+		<h3> Section: {{ section }} </h3>
+	</div>
+	<div class="studLink">
+		<table>
+			<TR> <td id="studCol"> Students </td> <td id = "gradeCol"> Grade </td>
+			{% for student_ID, grade in admin_Info %}
+				<TR>
+					<td class="c1"> {{ student_ID }} </td>
+					<td class="c2"> {{ grade }} </td>
+				</TR>
+			{% endfor %}
+		</table>
+	</div>
+	</form>
+{% endblock %}
+
+{% block leftcontent %}	
+
+	<ul class="courseYears">
+		{% for pastCourses in past_Courses %}
+			<li><a href=" {{ url_for(courses) }}"> {{ pastCourses }} </a></li>
+		{% else % }
+			<li><em>You are not teaching any courses </em>
+		{% end for %}
+	</ul>
+{% endblock %}

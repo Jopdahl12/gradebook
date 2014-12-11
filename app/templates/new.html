@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="gradebook.css" media="screen" />
+</head>
+<body>
+	{% block header %}
+	<form action="/currentID" method=post>
+		<div id="header">
+			<h1>Gradetracker</h1>
+			<ul>
+				<li><a href="{{ url_for('home') }}"> Home </a></li>
+				<li><a href="{{ url_for('profile') }}"> Profile </a></li>
+			</ul>
+			{% if user.logged_in %}
+			<p id="loggedInStudent">Logged in as {{ user }} </p> 
+			<p> <a href="{{url_for('logout')}}"> Logout </a></p>
+			{% endif %}
+		</div>
+	</form>
+	{% endblock %}
+
+	<div class="colmask leftmenu">
+		<div class="colleft">
+			<div class="col1">
+				{% block rightcontent %}{% endblock %}
+			</div>
+			<div class="col2">
+				<h1> Courses </h1>
+				{% block leftcontent %}{% endblock %}
+			</div>
+		</div>
+	</div>
+	
+	<div id="footer">
+		<p>Created by Bjorn Norderhaug & Jon Opdahl.</p>
+	</div>
+</body>
+</html>

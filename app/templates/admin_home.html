@@ -1,0 +1,19 @@
+{% extends "new.html" %}
+
+{% block rightcontent %}
+
+	<h1 text-align:center> Welcome! </h1>
+	<div class="buttons">
+
+	</div>
+{% endblock %}
+
+{% block leftcontent %}
+	<form action="/getYears" method=post>
+		<ul class="courseYears" list-style-type="none">
+			{% for course in user.classes}
+			<li>{{course}}</li>
+			{% endfor %}
+		</ul>
+	</form>
+{% endblock %}

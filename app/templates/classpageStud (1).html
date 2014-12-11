@@ -1,0 +1,35 @@
+{% extends "new.html" %}
+
+{% block rightcontent %}
+	<form action="/getStudDescription" method=post>
+		<div class="description">
+			<h1> Classname: {{ classname }} </h1>
+			<h2> Prof: {{ staff_ID }} </h2>
+			<h3> Section: {{ section }} </h3>
+		</div>
+		<div class="studLink">
+			<table>
+				<TR> <td> Assignments </td> <td> Grade </td> </TR>
+				{% for student_ID,grade in student_Info %}
+					<TR>
+						<td class="c1"> {{ student_ID }}</td>
+						<td class="c2"> {{ grade }}</td>
+					</TR>
+				{% endfor %}
+			</table>
+			<p> Total Grade {{ totalGrade }} </p>
+		</div>
+	</form>
+{% endblock %}
+
+{% block leftcontent %}	
+	<form action="/getCourses" method=post>
+		<ul class="coursesTaken">
+			{% for courses in getCourses %}
+				<li><a href="{{ url_for('courses') }}"> {{ courses }}</a></li>
+			{% else % }
+				<li><em>You are not enrolled in any courses </em>
+			{% end for %}
+		</ul>
+	</form>
+{% endblock %}

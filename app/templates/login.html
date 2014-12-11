@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1> Logging In</h1>
+ 	<form action="" method="post" name="login">
+  		{{ form.hidden_tag() }}
+  		<p>
+  			Username: {{ form.username }} <br>
+  			{% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        	{% endfor %}<br>
+  		</p>
+  		<p>
+  			Password: {{ form.password }}
+  			{% for error in form.password.errors %}
+  			<span style="color: red;"> [{{error}}] </span>
+  			{% endfor %}<br>
+  		</p>
+  		<p>
+  			Remember Me {{ form.remember_me }}
+  		</p>
+    	<p><input type="submit" value="Sign In"></p>
+	</form>
+</body>
+</html>
