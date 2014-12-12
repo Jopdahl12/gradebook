@@ -1,19 +1,62 @@
 {% extends "new.html" %}
+{% block content %}
+    <!-- Page Content -->
+    <div class="container">
 
-{% block rightcontent %}
+        <div class="row">
+            <div class="col-md-3">
+                <p class="lead"> Courses </p>
+                <div class="list-group">
+                	{% for course in user.classes %}
+                    <a href="/students/{{user.id}}/{{course}}" class="list-group-item">{{ course.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
 
-	<h1 text-align:center> Welcome! </h1>
-	<div class="buttons">
+            <div class="col-md-9">
 
-	</div>
-{% endblock %}
+                <div class="thumbnail">
+                    <div class="caption-full">
+                        <h4>Welcome!</h4>
+                    </div>
+                </div>
 
-{% block leftcontent %}
-	<form action="/getYears" method=post>
-		<ul class="courseYears" list-style-type="none">
-			{% for course in user.classes %}
-			<li> {{ course}} </li>
-			{% endfor %}
-		</ul>
-	</form>
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-12">
+                        	<h4> Courses </h4>
+                            <p>View your current courses</p>
+                            <a class="pull-right" href="#"> Courses </a>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                        	<h4> Add/Drop </h4>
+                            <p>Add or drop classes using the links</p>
+                            <p class="pull-right"><a href="#"> Add Class </a> 
+                            <br>
+                            <a href="#"> Drop Class </a> </p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                        	<h4> Contact Administrator</h4>
+                            <p>View office hours and emails for your teachers and staff</p>
+                            <a class="pull-right" href="#"> Contact </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 {% endblock %}

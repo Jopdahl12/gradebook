@@ -50,7 +50,7 @@ def logout():
 @app.route('/home')
 @login_required
 def home():
-	user = currennt_user
+	user = current_user
 	if user in Student.query.all():
 		return redirect('/student/%s' % user.id)
 	return redirect('/admin/%s' % user.id)
@@ -76,6 +76,23 @@ def show_admin_prof(id):
 	user = Admin.query.filter_by(id=id).first()
 	return render_template('admin_profile.html', user=user)
 
+@app.route('/student/<id>/<course_name>')
+@login_required
+def student_classpage(id, course_name):
+	user=current_user
+	course=Course.query.filter_by(name=course_name).first()
+	return render_template('classpageStud.html',
+							course=course,
+							user=user)
+
+@app.route('/admin/<id>/<course_name>')
+@login_required
+def admin_classpage(id, course_name):
+	user=current_user
+	course=Course.query.filter_by(name=course_name).first()
+	return render_template('classpageAdmin.html',
+							course=course,
+							user=user)
 
 
 

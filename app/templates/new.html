@@ -1,39 +1,98 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="gradebook.css" media="screen" />
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Shop Item - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/css/shop-item.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+    	#login_status{
+    		float: right;
+    		color: white;
+    		height: inherit;
+    	}
+    	#footer {
+    		position:relative;
+    		top:;
+    	}
+    </style>
+
 </head>
 <body>
-	{% block header %}
-	<form action="/currentID" method=post>
-		<div id="header">
-			<h1>Gradetracker</h1>
-			<ul>
-				<li><a href="{{ url_for('home') }}"> Home </a></li>
-				<li><a href="{{ url_for('profile') }}"> Profile </a></li>
-			</ul>
-			{% if user.logged_in %}
-			<p id="loggedInStudent">Logged in as {{ user }} </p> 
-			<p> <a href="{{url_for('logout')}}"> Logout </a></p>
-			{% endif %}
-		</div>
-	</form>
-	{% endblock %}
+<!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/home">GradeTracker</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/home">Home</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('profile') }}">Profile</a>
+                    </li>
+                    <li class="pull-right">         	
+					</li>
+                </ul>
+                <p id="login_status" class="pull_right">Logged in as {{ user }} <br>
+					<a href="{{url_for('logout')}}" class="pull-right"> Logout </a>
+				</p>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <!-- /.container -->
+    {% block content %}{% endblock %}
 
-	<div class="colmask leftmenu">
-		<div class="colleft">
-			<div class="col1">
-				{% block rightcontent %}{% endblock %}
-			</div>
-			<div class="col2">
-				<h1> Courses </h1>
-				{% block leftcontent %}{% endblock %}
-			</div>
-		</div>
-	</div>
-	
-	<div id="footer">
-		<p>Created by Bjorn Norderhaug & Jon Opdahl.</p>
-	</div>
+    <div class="container">
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Created By Bjorn Norderhaug & Jon Opdahl</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="/static/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/js/bootstrap.min.js"></script>
 </body>
 </html>
