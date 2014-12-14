@@ -16,13 +16,6 @@
     <!-- Custom CSS -->
     <link href="/static/css/shop-item.css" rel="stylesheet">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
     <style>
     	#login_status{
     		float: right;
@@ -33,10 +26,60 @@
     		position:relative;
     		top:;
     	}
+        .rwd-table {
+            width: 100%;
+            margin: 1em 0;
+            min-width: 300px; // adjust to your needs
+            padding: 2em 2em;
+            font-family: Montserrat, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            color: #fff;
+            background: #34495E;
+            border-radius: .4em;
+  
+            tr {
+                border-top: 1px solid #ddd;
+                border-bottom: 1px solid #ddd;
+                margin: .5em 1em;
+                padding-left: .5em;
+            }
+            th {
+                display: none;
+                margin:.5em 1em;
+                color:#dd5;
+            }
+  
+            td {
+                 display: block;
+                 mar
+    
+                &:first-child {
+                    padding-top: .5em;
+                }
+                &:last-child {
+                    padding-bottom: .5em;
+                }
+
+                &:before {
+                    content: attr(data-th)": "; // who knew you could do this? The internet, that's who.
+                    font-weight: bold;
+
+                    // optional stuff to make it look nicer
+                    width: 6.5em; // magic number :( adjust according to your own content
+                    display: inline-block;
+                    // end options
+                }
+            }
+  
+            th, td {
+                text-align: left;
+            }
+        }
     </style>
 
 </head>
-<body>
+<body style="background-color: #436681">
 <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">

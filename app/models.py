@@ -48,7 +48,7 @@ class Student(db.Model):
 
 	def drop(self, coursename):
 		if self.is_registered(coursename):
-			course = self.classes.filter(classroom.c.course == coursename)
+			course = Course.query.filter_by(name=coursename).first()
 			self.classes.remove(course)
 			return self
 
@@ -95,6 +95,11 @@ class Course(db.Model):
 	admin_id = db.Column(db.String(8), db.ForeignKey('admin.id'))
 	assignments = db.relationship("Assignment", backref="for_class", lazy='dynamic')
 
+	def is_empty(self):
+		if self.assignments is None:
+			return True
+		return False
+
 	def __repr__(self):
 		return self.name
 
@@ -108,6 +113,7 @@ class Assignment(db.Model):
 	def score(self):
 		score = self.total/self.out_of
 		return score
+
 
 	def __repr__(self):
 		return self.name

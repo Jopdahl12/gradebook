@@ -28,11 +28,14 @@ def load_user(id):
 		user=Admin.query.get(str(id))
 	return user
 
+@app.route('/about')
+def about():
+	return render_template('about.html')
+
 @app.route('/student/<id>')
 @login_required
 def stud_home(id):
 	user = Student.query.filter_by(id=id).first()
-
 	return render_template('student_home.html', user=user)
 
 @app.route('/admin/<id>')
@@ -94,8 +97,52 @@ def admin_classpage(id, course_name):
 							course=course,
 							user=user)
 
+@app.route('/register')
+@login_required
+def reg():
+	user = current_user
+	courses = Course.query.all()
+	return render_template('register.html', 
+							courses=courses, 
+							user=user)
 
+@app.route('/drop')
+@login_required
+def dr():
+	user = current_user
+	return render_template('drop.html',
+							user=user)
+@app.route('/register/<class_name>')
+@login_required
+def register(class_name):
+	user = current_user
+	user = user.register(class_name)
+	db.session.add(user)
+	db.session.commit()
+	return redirect('/register')
 
+@app.route('/drop/<class_name>')
+@login_required
+def drop(class_name):
+	user = current_user
+	user = user.drop(class_name)
+	db.session.add(user)
+	db.session.commit()
+	return redirect('/drop')
+
+@app.route('/student/<id>/courses')
+@login_required
+def student_courses(id):
+	user = current_user 
+	return render_template('student_classes.html',
+							user=user)
+
+@app.route('/admin/<id>/courses')
+@login_required
+def admin_courses(id):
+	user = current_user
+	return render_template('admin_classes.html',
+							user=user)
 
 
 

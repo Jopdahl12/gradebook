@@ -16,16 +16,6 @@
     <!-- Custom CSS -->
     <link href="/static/css/shop-item.css" rel="stylesheet">
 
-    <style>
-    	#loginbox {
-    		margin-right:35%;
-    		margin-left:35%;
-    		border:solid gray 2px;
-    		padding-left: 10px;
-    		width:30%;
-    		min-width:300px;
-    	}
-    </style>
 </head>
 <body style="background-color: #436681">
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -42,34 +32,30 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                	<li> <a href="/about"> About </a></li>
-                	<li> <a href="/login"> Login </a><li>
+                	<li><a href="/About"> About </a></li>
+                	<li> <a href="/login"> Login </a></li>
                 </ul>
             </div>
         </div>
     </nav>
-<div id="loginbox" class="thumbnail">
- 	<form action="" method="post" name="login">
-  		{{ form.hidden_tag() }}
-  		<h4> Login </h4>
-  		<p>
-  			Username: {{ form.username }} <br>
-  			{% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-        	{% endfor %}<br>
-  		</p>
-  		<p>
-  			Password: {{ form.password }}
-  			{% for error in form.password.errors %}
-  			<span style="color: red;"> [{{error}}] </span>
-  			{% endfor %}<br>
-  		</p>
-  		<p>
-  			Remember Me {{ form.remember_me }}
-  		</p>
-    	<p><input type="submit" value="Sign In" class="btn btn-primary"></p>
-	</form>
-</div>
+                <div class="thumbnail">
+                    <div class="caption-full">
+                        <h1>About Gradetracker</h1>
+                        <p> This web application was designed as a basic Gradebook. Students registered in the "schools" database can login with their username and password to register and drop classes, view Administrators contact information, and view their current grades in courses and for assignments. Administrators can also login to view their classes and add assignments and grades for existing assignments. All users (studetns or administrators) can view their profile and change their password. Administrators can also update their office hours and contact information (email). 
+                        </p>
+                        <hr>
+                        <h4> Improvements </h4>
+                        <p> Future improvements to the application include: </p>
+                        <ul>
+                        	<li> Allowing students to view their transcript and past classes </li>
+                        	<li> Allow submission of assignments through GradeTracker interface </li>
+                        	<li> Authorized administrators can add students to the system </li>
+                        </ul>
+                        <hr>
+                        <h4> Contributions </h4>
+                        <p> This application was created by Bjorn Nordenhaug and Jon Opdahl. CSS and JS styling adapted from the free bootstrap "Shop-Item" template (source: <a href="http://startbootstrap.com/template-overviews/shop-item/"> http://startbootstrap.com/template-overviews/shop-item/ </a>). </p>
+                    </div>
+                </div>
 <div class="container">
 	<hr>
         <footer>

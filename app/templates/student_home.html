@@ -8,7 +8,7 @@
                 <p class="lead"> Courses </p>
                 <div class="list-group">
                 	{% for course in user.classes %}
-                    <a href="/students/{{user.id}}/{{course}}" class="list-group-item">{{ course.name }}</a>
+                    <a href="/student/{{user.id}}/{{course.name}}" class="list-group-item">{{ course.name }}</a>
                     {% endfor %}
                 </div>
             </div>
@@ -26,7 +26,7 @@
                         <div class="col-md-12">
                         	<h4> Courses </h4>
                             <p>View your current courses</p>
-                            <a class="pull-right" href="#"> Courses </a>
+                            <p class="pull-right"><a href="/student/{{user.id}}/courses" class="btn btn-success"> Courses </a></p>
                         </div>
                     </div>
 
@@ -36,9 +36,8 @@
                         <div class="col-md-12">
                         	<h4> Add/Drop </h4>
                             <p>Add or drop classes using the links</p>
-                            <p class="pull-right"><a href="#"> Add Class </a> 
-                            <br>
-                            <a href="#"> Drop Class </a> </p>
+                            <p class="pull-right"><a href="/register" class="btn btn-success"> Add Class </a> 
+                            <a href="/drop" class="btn btn-success" class="pull-right"> Drop Class </a> </p>
                         </div>
                     </div>
 
@@ -48,7 +47,7 @@
                         <div class="col-md-12">
                         	<h4> Contact Administrator</h4>
                             <p>View office hours and emails for your teachers and staff</p>
-                            <a class="pull-right" href="#"> Contact </a>
+                            <p class="pull-right"><a href="#" class="btn btn-success"> Contact </a></p>
                         </div>
                     </div>
 

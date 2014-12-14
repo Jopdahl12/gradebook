@@ -1,19 +1,71 @@
 {% extends "new.html" %}
+{% block content %}
+    <!-- Page Content -->
+    <div class="container">
 
-{% block rightcontent %}
-	<div class="description">
-		<h1> Classname: {{ course.name }} </h1>
-		<h2> Prof: {{ course.teacher }} </h2>
-	</div>
-	<div class="studLink">
-		<table>
-			<TR> <td id="studCol"> Students </td> <td id = "gradeCol"> Grade </td>
-			{% for stud in course.students %}
-				<TR>
-					<td class="c1"> {{ stud }} </td>
-				</TR>
-			{% endfor %}
-		</table>
-	</div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="lead"> Courses </p>
+                <div class="list-group">
+                	{% for c in user.classes %}
+                	{% if c == course %}
+                    <a href="/admin/{{user.id}}/{{c}}" class="list-group-item active">{{ c.name }}</a>
+                    {% else %}                  
+                    <a href="/admin/{{user.id}}/{{c}}" class="list-group-item ">{{ c.name }}</a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-md-9">
+
+                <div class="thumbnail">
+                    <div class="caption-full">
+                        <h4>{{ course.name }}</h4>
+                        <p> Instructor: {{ course.teacher }} </p>
+                    </div>
+                </div>
+
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-12">
+							<table class="rwd-table">	
+								<tr> 
+									<th> Assignments </th>
+									<th> Possible </th> 
+									<th> Grade </th> 
+								</tr>
+									{% for student in course.students %}
+									<tr>
+										<td> {{ student }}</td>
+									</tr>
+									{% endfor %}
+								<tr> 
+									<th> Total </th>
+									<th> {{course.total}} </th>
+								<tr>
+							</table>
+                        </div>
+                    </div>
+                </div>
+                <div class="well">
+                    <div class="row">
+                    	<div class="col-md-12">
+                    		<h4> Edit Assignments </h4>
+                    		<p> 
+                    			<a class='btn btn-success'> Add </a> 
+                    			<a class='btn btn-success'> Delete </a> 
+                    			<a class='btn btn-success'> Enter Grade </a> 
+                    		</p>
+                    	</div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 {% endblock %}
+
 

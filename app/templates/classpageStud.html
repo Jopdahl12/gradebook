@@ -1,35 +1,61 @@
 {% extends "new.html" %}
+{% block content %}
+    <!-- Page Content -->
+    <div class="container">
 
-{% block rightcontent %}
-	<form action="/getStudDescription" method=post>
-		<div class="description">
-			<h1> Classname: {{ classname }} </h1>
-			<h2> Prof: {{ staff_ID }} </h2>
-			<h3> Section: {{ section }} </h3>
-		</div>
-		<div class="studLink">
-			<table>
-				<TR> <td> Assignments </td> <td> Grade </td> </TR>
-				{% for student_ID,grade in student_Info %}
-					<TR>
-						<td class="c1"> {{ student_ID }}</td>
-						<td class="c2"> {{ grade }}</td>
-					</TR>
-				{% endfor %}
-			</table>
-			<p> Total Grade {{ totalGrade }} </p>
-		</div>
-	</form>
-{% endblock %}
+        <div class="row">
+            <div class="col-md-3">
+                <p class="lead"> Courses </p>
+                <div class="list-group">
+                	{% for c in user.classes %}
+                	{% if c == course %}
+                    <a href="{{ url_for('student_classpage', id=user.id, course_name=c.name) }}" class="list-group-item active">{{ c.name }}</a>
+                    {% else %}                  
+                    <a href="/student/{{user.id}}/{{c}}" class="list-group-item">{{ c.name }}</a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
 
-{% block leftcontent %}	
-	<form action="/getCourses" method=post>
-		<ul class="coursesTaken">
-			{% for courses in getCourses %}
-				<li><a href="{{ url_for('courses') }}"> {{ courses }}</a></li>
-			{% else % }
-				<li><em>You are not enrolled in any courses </em>
-			{% end for %}
-		</ul>
-	</form>
+            <div class="col-md-9">
+
+                <div class="thumbnail">
+                    <div class="caption-full">
+                        <h4>{{ course.name }}</h4>
+                        <p> Instructor: {{ course.teacher }} </p>
+                    </div>
+                </div>
+
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-12">
+							<table class="rwd-table">	
+								<tr> 
+									<td> Assignments </td> 
+									<td> Possible </td>
+									<td> Grade </td> 
+								</tr>
+									{% if course.is_empty() %}
+									<tr>
+										<td> No Assignments </td>
+									</tr>
+									{% endif %}
+									{% for assignment in course.assignments %}
+									<tr>
+										<td class="assignment"> {{ assignment }}</td>
+										<td class="out_of"> {{ assignment.out_of }}</td>
+										<td class="score"> {{ assignment.score }} </td>
+									</tr>
+									{% endfor %}
+							</table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 {% endblock %}
