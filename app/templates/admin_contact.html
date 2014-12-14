@@ -1,0 +1,46 @@
+{% extends "new.html" %}
+{% block content %}
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-3">
+                <p class="lead"> Courses </p>
+                <div class="list-group">
+                	{% for course in user.classes %}
+                    <a href="/admin/{{user.id}}/{{course.name}}" class="list-group-item">{{ course.name}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="well">
+                    {% for admin in admins %}
+                    {% if admin != user %}
+                    <div class="row">
+                        <div class="col-md-12">
+                        	<h4> {{admin}} </h4>
+                            <p> Office Hours: {{admin.begin}} - {{admin.end}} </p>
+                            <p> eMail: {{admin.email}} </p>
+                            <p> Teaches:
+                                <ul>
+                                {%for c in admin.classes %} 
+                                    <li> {{c}} </li>
+                                {% endfor %}
+                                </ul>   
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr>
+                    {% endif %}
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}

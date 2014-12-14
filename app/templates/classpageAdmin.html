@@ -31,19 +31,21 @@
                         <div class="col-md-12">
 							<table class="rwd-table">	
 								<tr> 
-									<th> Assignments </th>
-									<th> Possible </th> 
+									<th> Students </th>
 									<th> Grade </th> 
+									<th> Letter </th> 
 								</tr>
-									{% for student in course.students %}
+									{% for student in students %}
 									<tr>
-										<td> {{ student }}</td>
+										<td> {{ student.first_name }} {{student.last_name}} </td>
+										{% for c in student.classes %}
+											{% if c.course_name == course.name %}
+												<td> {{c.grade}} </td>
+												<td> {{c.overall_grade}} </td>
+											{% endif %}
+										{% endfor %}
 									</tr>
 									{% endfor %}
-								<tr> 
-									<th> Total </th>
-									<th> {{course.total}} </th>
-								<tr>
 							</table>
                         </div>
                     </div>
