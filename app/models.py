@@ -1,8 +1,8 @@
 from app import db
 
-classroom = db.Table('classroom',
-	db.Column("student", db.String(8), db.ForeignKey('student.id')),
-	db.Column("course", db.Integer, db.ForeignKey('course.name'))
+classroom = db.Table('classroom', db.Model.metadata,
+	db.Column('student', db.String(8), db.ForeignKey('student.id')),
+	db.Column('course', db.Integer, db.ForeignKey('course.name'))
 )
 
 class Student(db.Model):
@@ -52,6 +52,10 @@ class Student(db.Model):
 			self.classes.remove(course)
 			return self
 
+	def set_password(self, newpass):
+		self.student_pass=newpass
+		return self
+
 	def is_registered(self, coursename):
 		return self.classes.filter(classroom.c.course == coursename).count()>0
 
@@ -63,6 +67,9 @@ class Admin(db.Model):
 	first_name = db.Column(db.String(50), index=True)
 	last_name = db.Column(db.String(50), index=True)
 	admin_pass = db.Column(db.String(50))
+	email = db.Column(db.String(120))
+	begin = db.Column(db.DateTime)
+	end = db.Column(db.DateTime)
 	classes = db.relationship("Course", backref="teacher", lazy='dynamic')
 
 	def is_authenticated(self):
@@ -84,6 +91,22 @@ class Admin(db.Model):
 		if self.admin_pass == password:
 			return True
 		return False
+
+	def set_office_hours(self, begin, end):
+		self.begin=begin
+		self.end=end
+		return self
+
+	def set_email(self, email):
+		if self.email==None:
+			self.email = id+"@gradetracker.com"
+		else:
+			self.email=email
+		return self
+
+	def set_password(self, newpass):
+		self.admin_pass= newpass
+		return self
 
 	def __repr__(self):
 		return 'Administrator %r' % (self.first_name + ' ' + self.last_name)
