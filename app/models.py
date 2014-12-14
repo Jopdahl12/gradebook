@@ -4,6 +4,7 @@ class Classroom(db.Model):
 	__tablename__ = 'classroom'
 	student_id = db.Column(db.String(8), db.ForeignKey('student.id'), primary_key=True)
 	course_name = db.Column(db.Integer, db.ForeignKey('course.name'), primary_key=True)
+	teacher = db.Column(db.String())
 	overall_grade = db.Column(db.String(1))
 	possible = db.Column(db.Integer)
 	grade = db.Column(db.Float)
@@ -35,6 +36,12 @@ class Classroom(db.Model):
 			self.overall_grade='F'
 		return self
 
+	def is_empty(self):
+		if self.assignments is None:
+			return True
+		return False
+
+
 	def __repr__(self):
 		return (self.student.first_name + self.student.last_name + ' ' + self.course.name)
 
@@ -47,7 +54,8 @@ class Student(db.Model):
 	total_credits = db.Column(db.Integer)
 	student_pass = db.Column(db.String(50))
 	classes = db.relationship("Classroom",
-							backref="student")
+							backref="student",
+							lazy='dynamic')
 
 	def is_authenticated(self):
 		return True
@@ -70,20 +78,22 @@ class Student(db.Model):
 		return False
 
 	def register(self, coursename):
-		if not self.is_registered(coursename):
-			course = Course.query.filter_by(name=coursename).first()
+			classroom = Classroom(student_id=self.id, course_name=coursename)
+			if classroom == Classroom.query.filter_by(student_id=self.id, course_name=coursename):
+				classroom =Classroom.query.filter_by(student_id=self.id, course_name=coursename)
 
-			self.classes.append(course)
+			self.classes.append(classroom)
 			return self
 
 	def drop(self, coursename):
-		if self.is_registered(coursename):
-			course = Course.query.filter_by(name=coursename).first()
-			self.classes.remove(course)
+			classroom = Classroom.query.filter_by(student_id=self.id, course_name=coursename).first()
+			self.classes.remove(classroom)
+			db.session.delete(classroom)
 			return self
 
-	def is_registered(self, coursename):
-		return self.classes.filter(classroom.c.course == coursename).count()>0
+	def set_password(self, newpass):
+		self.student_pass = newpass
+		return self
 
 	def __repr__(self):
 		return (self.first_name + ' ' + self.last_name)
@@ -93,6 +103,10 @@ class Admin(db.Model):
 	first_name = db.Column(db.String(50), index=True)
 	last_name = db.Column(db.String(50), index=True)
 	admin_pass = db.Column(db.String(50))
+	position = db.Column(db.String(50))
+	email = db.Column(db.String(120))
+	begin = db.Column(db.DateTime)
+	end = db.Column(db.DateTime)
 	classes = db.relationship("Course", backref="teacher", lazy='dynamic')
 
 	def is_authenticated(self):
@@ -115,19 +129,24 @@ class Admin(db.Model):
 			return True
 		return False
 
+	def set_email(self, email=''):
+		if self.email==None:
+			self.email = self.id + '@gradetracker.com'
+		else:
+			self.email = email
+		return self
+
+	def set_password(self, newpass):
+		self.admin_pass = newpass
+		return self
+
 	def __repr__(self):
-		return 'Administrator %r' % (self.first_name + ' ' + self.last_name)
+		return (self.first_name + ' ' + self.last_name)
 
 class Course(db.Model):
 	course_num = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(80), index=True, unique=True)
 	admin_id = db.Column(db.String(8), db.ForeignKey('admin.id'))
-
-
-	def is_empty(self):
-		if self.assignments is None:
-			return True
-		return False
 
 	def __repr__(self):
 		return self.name

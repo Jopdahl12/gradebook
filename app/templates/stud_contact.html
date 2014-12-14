@@ -7,7 +7,7 @@
             <div class="col-md-3">
                 <p class="lead"> Courses </p>
                 <div class="list-group">
-                    {% for course in user.classes %}
+                	{% for course in user.classes %}
                     <a href="/student/{{user.id}}/{{course.course_name}}" class="list-group-item">{{ course.course_name}}</a>
                     {% endfor %}
                 </div>
@@ -15,21 +15,24 @@
 
             <div class="col-md-9">
                 <div class="well">
+                    {% for admin in admins %}
                     <div class="row">
                         <div class="col-md-12">
-                        	{% if user.classes.is_empty %}
-                        	<p> Not Currently Taking Any Classes </p>
-                        	{% endif %}
-                        	{% for class in user.classes %}
-                        	<h4> {{class.course_name}} </h4>
-                        	<p> Instructor: {{class.course.teacher}} </p>
-                        	<p> Class Description </p> 
-                        	<p class="pull-right"> <a class="btn btn-primary" href="/drop/{{class.course_name}}"> Drop </a> </p>
-                        	<br>
-                        	<hr>
-                        	{% endfor %}
+                        	<h4> {{admin}} </h4>
+                            <p> Office Hours: {{admin.begin}} - {{admin.end}} </p>
+                            <p> eMail: {{admin.email}} </p>
+                            <p> Teaches:
+                                <ul>
+                                {%for c in admin.classes %} 
+                                    <li> {{c}} </li>
+                                {% endfor %}
+                                </ul>   
+                            </p>
                         </div>
                     </div>
+
+                    <hr>
+                    {% endfor %}
 
                 </div>
 

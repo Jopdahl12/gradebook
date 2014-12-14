@@ -17,11 +17,24 @@
 
                 <div class="thumbnail">
                     <div class="caption-full">
-                        <h4>Welcome!</h4>
+                        <h4>Welcome Administrator {{user}}!</h4>
                     </div>
                 </div>
 
                 <div class="well">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4> Profile : {{user}} </h4>
+                            <p>Position: {{user.position}}</p>
+                            <p>eMail: {{user.email}}</p>
+                            <p> Office Hours: {{user.begin}} - {{user.end}} </p>
+
+                            <p class="pull-right"><a class="btn btn-success" href="/admin/{{user.id}}/profile"> Full Profile </a></p>
+                        </div>
+                    </div>
+
+                    <hr>
+
                     <div class="row">
                         <div class="col-md-12">
                         	<h4> Courses </h4>
@@ -36,9 +49,10 @@
                         <div class="col-md-12">
                         	<h4> Contact Administrator</h4>
                             <p>View office hours and emails for your peers</p>
-                            <p class="pull-right"><a class="btn btn-success" href="#"> Contact </a></p>
+                            <p class="pull-right"><a class="btn btn-success" href="{{ url_for('adminContact', id=user.id) }}"> Contact </a></p>
                         </div>
                     </div>
+
 
                 </div>
 
