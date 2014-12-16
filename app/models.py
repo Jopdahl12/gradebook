@@ -96,7 +96,7 @@ class Student(db.Model):
 					while key in g:
 						key = random.randint(0,1000)
 					g.append(key)
-					a = Assignment(id=key, name=assignment.name, out_of=assignment.out_of, student_id=self.id)
+					a = Assignment(id=key, name=assignment.name, out_of=assignment.out_of, student_id=classroom.student_id)
 					db.session.add(a)
 					classroom.assignments.append(a)
 					db.session.add(classroom)

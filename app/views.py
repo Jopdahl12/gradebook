@@ -281,7 +281,7 @@ def admin_changeMail(id):
 def add(id, course_name):
 	user=current_user
 	course = Course.query.filter_by(name=course_name).first()
-	classrooms = Classroom.query.filter_by(course_name=course_name).all()
+	classrooms = Classroom.query.filter_by(course=course).all()
 	for classroom in classrooms:
 		print (classroom.student_id, classroom.course_name, classroom.assignments)
 	students=[]
@@ -360,7 +360,6 @@ def handle_delete(course_name):
 					key = assignment.id
 					reuse_key(key)
 					classroom = classroom.remove(assignment.name)
-					db.session.add(classroom)
 					classroom = classroom.update_possible()
 					db.session.add(classroom)
 					classroom = classroom.update_grade()
