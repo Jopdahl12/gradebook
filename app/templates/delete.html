@@ -54,26 +54,28 @@
                 <div class="well">
                     <div class="row">
                         <div class="col-md-12">
-                            <table class="rwd-table">   
+                            <table class="rwd-table">  
+                            	<form action="/{{course.name}}/delete" method="post" name='delete'> 
                                 <tr> 
                                     <th> Assignments </th>
                                     <th> Possible </th> 
                                 </tr>
-                                    {% if assignments %}
-                                    {% for assignment in assignments %}
+                                    {% if classrooms[0] %}
+                                    {% for assignment in classrooms[0].assignments %}
                                     <tr>
                                         <td> {{ assignment.name }} </td>
                                         <td> {{ assignment.out_of}} </td>
+                                        <td> <input type="checkbox" name="{{assignment.name}}" default='off'/> </td>
                                     </tr>
                                     {% endfor %}
-                                    {% endif %}
-                                    {% if classrooms[0] %}
                                     <tr>
                                         <th> Total </th>
                                         <td> {{classrooms[0].possible}} </td>
                                     </tr>
                                     {% endif %}
                             </table>
+                            <p class="pull-right"><input class="btn btn-primary" type="submit" value="Delete Selected"/></p>
+                        	</form>
                         </div>
                     </div>
                 </div>
@@ -97,5 +99,3 @@
 
     </div>
 {% endblock %}
-
-

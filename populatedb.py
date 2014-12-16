@@ -1,0 +1,41 @@
+#!flask/bin/python
+
+from app import db, models
+
+s = models.Student(id='builbo01', first_name='Bob', last_name='Builder', year=1, total_credits=0, GPA=4.00, student_pass='password')
+db.session.add(s)
+s = models.Student(id='simpli01', first_name='Lisa', last_name='Simpson', year=2, total_credits=58, GPA=3.87, student_pass='password')
+db.session.add(s)
+s = models.Student(id='expldo01', first_name='Dora', last_name='Explorer', year=3, total_credits=76, GPA=2.57, student_pass='password')
+db.session.add(s)
+s = models.Student(id='squasp01', first_name='Spongebob', last_name='Squarepants', year=4, total_credits=100, GPA=3.25, student_pass='password')
+db.session.add(s)
+db.session.commit()
+print ('students added')
+
+a = models.Admin(id='peabmr01', first_name='Mr.', last_name='Peabody', begin='12:00', end='3:00', position='Instructor', admin_pass='password')
+db.session.add(a)
+a.set_email()
+db.session.add(a)
+a = models.Admin(id='plumpr01', first_name='Professor', last_name='Plum', begin='10:00', end='11:00', position='Professor', admin_pass='password')
+db.session.add(a)
+a.set_email()
+db.session.add(a)
+db.session.commit()
+print('admin added')
+
+c = models.Course(course_num=1, name='Algebra 1', admin_id='plumpr01')
+db.session.add(c)
+c = models.Course(course_num=2, name='Crime and Punishment', admin_id='plumpr01')
+db.session.add(c)
+c = models.Course(course_num=3, name='Calculus 1', admin_id='plumpr01')
+db.session.add(c)
+c = models.Course(course_num=4, name='Time Travel', admin_id='peabmr01')
+db.session.add(c)
+c = models.Course(course_num=5, name='Fixing Things 101', admin_id='peabmr01')
+db.session.add(c)
+c = models.Course(course_num=6, name='Jazz History', admin_id='peabmr01')
+db.session.add(c)
+db.session.commit()
+print ('courses added')
+

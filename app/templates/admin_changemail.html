@@ -8,7 +8,7 @@
                 <p class="lead"> Courses </p>
                 <div class="list-group">
                 	{% for course in user.classes %}
-                    <a href="/student/{{user.id}}/{{course.course_name}}" class="list-group-item">{{ course.course_name}}</a>
+                    <a href="/admin/{{user.id}}/{{course.name}}" class="list-group-item">{{ course.name}}</a>
                     {% endfor %}
                 </div>
             </div>
@@ -19,9 +19,9 @@
                         <div class="col-md-12">
                         	<h4> Profile </h4>
                             <p> Name: {{user}} </p>
-                            <p> Year: {{user.year}}</p>
-                            <p> GPA: {{user.GPA}}</p>
-                            <p> Total Credits: {{user.total_credits}}</p>
+                            <p> Position: {{user.position}}</p>
+                            <p> Office Hours: {{user.begin}} - {{user.end}}</p>
+                            <p> eMail: {{user.email}}</p>
                         </div>
                     </div>
 
@@ -29,11 +29,10 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                        	<h4> Options </h4>
-                            <p> Edit Profile </p>
-                            <p><a href="/register" class="btn btn-success"> Add Class </a> 
-                            <a href="/drop" class="btn btn-success"> Drop Class </a> 
-                            <a href="/student/{{user.id}}/changepassword" class="btn btn-success"> Change Password </a></p>
+                            <form name="changePassword" method="POST" action=''>
+                                <p> New Email: {{form.newEmail}} </p> 
+                                <p class="pull-right"> <input type="submit" value="Set New Email" class="btn btn-primary" /> </p>
+                            </form>
                         </div>
                     </div>
                 </div>

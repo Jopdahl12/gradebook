@@ -1,0 +1,75 @@
+{% extends "new.html" %}
+{% block content %}
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-3">
+                <p class="lead"> Courses </p>
+                <div class="list-group">
+                	{% for c in user.classes%}
+                	{% if c.name == course.name %}
+                    <a href="" class="list-group-item active">{{ c.name }}</a>
+                    {% else %}                  
+                    <a href="/admin/{{user.id}}/{{c.name}}" class="list-group-item">{{ c.name }}</a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-md-9">
+
+                <div class="thumbnail">
+                    <div class="caption-full">
+                        <h4>{{ course.name }}</h4>
+                        <p> Instructor: {{ course.teacher }} </p>
+                        <p> Office Hours: {{course.teacher.begin}} - {{course.teacher.end}} </p>
+                        <p> eMail: {{course.teacher.email}}</p>
+                    </div>
+                </div>
+
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form action='/{{course.name}}/{{student.id}}/grade' method='post' name='change_grade'>
+    							<table class="rwd-table">	
+
+    								<tr> 
+    									<th> Assignments </th> 
+    									<th> Possible </th>
+                                        <th> Score </th>
+    									<th> Grade </th> 
+    								</tr>
+    									{% if not assignments %}
+    									<tr>
+    										<td> No Assignments </td>
+    									</tr>
+    									{% endif %}
+    									{% for assignment in classroom.assignments %}
+    									<tr>
+    										<td class="assignment"> {{assignment.num}}   {{ assignment.name }}</td>
+    										<td class="out_of"> {{ assignment.out_of }}</td>
+    										<td class="score"> <input type='text' name='{{assignment.name}}' placeholder='{{assignment.total}}'/> </td>
+                                            <td> {{ assignment.grade }}   {{ assignment.letter}} </td>
+    									</tr>
+    									{% endfor %}
+                                    <tr>
+                                        <th> Total </th>
+                                        <th> {{classroom.possible}} </th>
+                                        <th> {{classroom.grade}} </th>
+                                        <th> {{classroom.overall_grade}} </th>
+                                    </tr>
+    							</table>
+                                <p class='pull-right'><input type='submit' value='Commit Changes' class='btn btn-success'/> </p>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}

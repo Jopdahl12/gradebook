@@ -1,0 +1,16 @@
+{% extends 'classpageAdmin.html' %}
+{% block content2 %}
+                <div class="well">
+                    <div class="row">
+                    	<div class="col-md-12">
+                    		<h4> Add Assignment </h4>
+                    		<p>  
+                            <form action="" method="post" name="add">
+                                <p> Name: {{form.Name}} Total Possible: {{form.total}} </p>
+                                <p class="pull-right"> <input type='submit' value="Add" class='btn btn-primary'/> </p>
+                            </form> 
+                            </p>
+                    	</div>
+                    </div>
+                </div>
+{% endblock %}

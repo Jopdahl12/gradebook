@@ -35,9 +35,10 @@
 								<tr> 
 									<td> Assignments </td> 
 									<td> Possible </td>
+                                    <td> Score </td>
 									<td> Grade </td> 
 								</tr>
-									{% if assignments %}
+									{% if assignments == [] %}
 									<tr>
 										<td> No Assignments </td>
 									</tr>
@@ -46,12 +47,15 @@
 									<tr>
 										<td class="assignment"> {{assignment.num}}   {{ assignment.name }}</td>
 										<td class="out_of"> {{ assignment.out_of }}</td>
-										<td class="score"> {{ assignment.score }} </td>
+										<td class="score"> {{ assignment.total }} </td>
+                                        <td> {{assignment.score}}</td>
+                                        <td> {{assignment.letter}} </td>
 									</tr>
 									{% endfor %}
                                 <tr>
                                     <th> Total </th>
                                     <th> {{classroom.possible}} </th>
+                                    <th> {{classroom.total_points}} </th>
                                     <th> {{classroom.grade}} </th>
                                     <th> {{classroom.overall_grade}} </th>
                                 </tr>
