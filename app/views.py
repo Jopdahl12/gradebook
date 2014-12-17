@@ -304,12 +304,13 @@ def add(id, course_name):
 		for classroom in classrooms:
 			key=generate_key()
 			print (pass_, classroom.student_id, classroom.course_name)
-			a=Assignment(id=key, name=form.name, out_of=form.out_of, for_class=classroom, student_id=classroom.student_id)
+			a=Assignment(id=key, name=form.name, out_of=form.out_of, student_id=classroom.student_id, course_name=course_name)
 			db.session.add(a)
 			a.set_score()
 			db.session.add(a)
+			classroom.assignments.append(a)
 			db.session.add(classroom)
-			classroom = a.for_class.update_possible()
+			classroom = classroom.update_possible()
 			print (classroom.assignments)
 			db.session.add(classroom)
 			pass_+=1
@@ -354,7 +355,7 @@ def handle_delete(course_name):
 	form = request.form
 	for f in form.keys():
 		if form[f] == 'on':
-			assignments = Assignment.query.filter_by(name=f).all()
+			assignments = Assignment.query.filter_by(name=f, course_name=course_name).all()
 			for assignment in assignments:
 				for classroom in classrooms:
 					key = assignment.id

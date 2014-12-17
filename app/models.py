@@ -10,7 +10,11 @@ class Classroom(db.Model):
 	grade = db.Column(db.Float, default=0)
 	total_points = db.Column(db.Integer, default=0)
 	course = db.relationship("Course", backref="stud_ass")
-	assignments = db.relationship("Assignment", backref='for_class')
+	assignments = db.relationship("Assignment", 
+									# secondary='Assignment',
+									primaryjoin='Assignment.student_id == Classroom.student_id',
+									# secondaryjoin='Assignment.course_name == Classroom.course_name',
+									backref='for_class')
 
 
 	def update_possible(self):
@@ -96,7 +100,7 @@ class Student(db.Model):
 					while key in g:
 						key = random.randint(0,1000)
 					g.append(key)
-					a = Assignment(id=key, name=assignment.name, out_of=assignment.out_of, student_id=classroom.student_id)
+					a = Assignment(id=key, name=assignment.name, out_of=assignment.out_of, student_id=classroom.student_id, course_name=coursename)
 					db.session.add(a)
 					classroom.assignments.append(a)
 					db.session.add(classroom)
@@ -178,13 +182,16 @@ class Course(db.Model):
 		return self.name
 
 class Assignment(db.Model):
+	__tablename__='Assignment'
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(100), index=True)
 	total = db.Column(db.Integer, default=0)
 	out_of = db.Column(db.Integer, default=0)
 	student_id = db.Column(db.String(8), db.ForeignKey('classroom.student_id'))
+	course_name = db.Column(db.String(80))
 	score = db.Column(db.Float, default=0.0)
 	letter = db.Column(db.String(2), default='NA')
+	# db.ForeignKeyConstraint([student_id],['Classroom.student_id'])
 
 
 	def set_score(self):
