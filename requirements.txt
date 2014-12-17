@@ -21,6 +21,8 @@ defusedxml==0.4.1
 flipflop==1.0
 guess-language==0.2
 gunicorn==19.1.1
+psycopg2==2.5.4
+web: gunicorn views:app
 itsdangerous==0.24
 pbr==0.10.0
 python3-openid==3.0.5
