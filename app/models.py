@@ -191,7 +191,7 @@ class Assignment(db.Model):
 	course_name = db.Column(db.String(80))
 	score = db.Column(db.Float, default=0.0)
 	letter = db.Column(db.String(2), default='NA')
-	# db.ForeignKeyConstraint([student_id],['Classroom.student_id'])
+	db.ForeignKeyConstraint([student_id],['Classroom.student_id'])
 
 
 	def set_score(self):
